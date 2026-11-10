@@ -85,9 +85,9 @@
       te: "నేల ఆరోగ్య పర్యవేక్షణ: పోషకాలు, pH, సేంద్రీయ పదార్థాల అంతర్దృష్టి—నేలను పోషించి పంటను బలోపేతం చేయడం, రసాయనాల అతి వినియోగం తగ్గడం.",
     },
     contact: {
-      en: "Contact GreenHarvest in Hyderabad (TG 500034). Phone +91 (970) 586-4681 · Email umar@greenharvest.ag · Hours Mon–Fri 8:00 AM–6:00 PM. Open the Contact page to send a message.",
-      hi: "संपर्क: हैदराबाद (TG 500034)। फोन +91 (970) 586-4681 · ईमेल umar@greenharvest.ag · समय सोम–शुक्र 8:00 AM–6:00 PM। संदेश के लिए Contact पेज खोलें।",
-      te: "సంప్రదించండి: హైదరాబాద్ (TG 500034). ఫోన్ +91 (970) 586-4681 · ఇమెయిల్ umar@greenharvest.ag · సమయం సోమ–శుక్ర 8:00 AM–6:00 PM. సందేశం కోసం Contact పేజీ తెరవండి.",
+      en: "Contact GreenHarvest in Hyderabad (TG 500034). Phone +91 (987) 654-3211 · Email umar@greenharvest.ag · Hours Mon–Fri 8:00 AM–6:00 PM. Open the Contact page to send a message.",
+      hi: "संपर्क: हैदराबाद (TG 500034)। फोन +91 (987) 654-3211 · ईमेल umar@greenharvest.ag · समय सोम–शुक्र 8:00 AM–6:00 PM। संदेश के लिए Contact पेज खोलें।",
+      te: "సంప్రదించండి: హైదరాబాద్ (TG 500034). ఫోన్ +91 (987) 654-3211 · ఇమెయిల్ umar@greenharvest.ag · సమయం సోమ–శుక్ర 8:00 AM–6:00 PM. సందేశం కోసం Contact పేజీ తెరవండి.",
     },
     products: {
       en: "Our main offerings: 1) Organic Farming Solutions 2) Seeds & Fertilizers 3) Smart Irrigation Systems 4) Agricultural Consultancy—plus Solutions for Smart Farming, Water Management, and Soil Health.",
