@@ -3,10 +3,34 @@
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- Deep-link scroll ---------- */
+  const scrollToHash = () => {
+    if (!window.location.hash) return;
+    const target = document.querySelector(window.location.hash);
+    if (!target) return;
+    window.setTimeout(() => {
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    }, 60);
+  };
+  scrollToHash();
+  window.addEventListener("hashchange", scrollToHash);
+
   const yearEl = document.getElementById("year");
   if (yearEl) {
     yearEl.textContent = String(new Date().getFullYear());
   }
+
+  /* ---------- Active nav by page ---------- */
+  const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+  const pageKey =
+    path === "" || path === "index.html" || path === "/"
+      ? "home"
+      : path.replace(/\.html$/, "");
+
+  document.querySelectorAll("[data-nav]").forEach((link) => {
+    const key = link.getAttribute("data-nav");
+    link.classList.toggle("is-active", key === pageKey);
+  });
 
   /* ---------- Mobile navigation ---------- */
   const nav = document.querySelector(".nav");
@@ -66,34 +90,6 @@
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
 
-  /* ---------- Scroll spy (active nav) ---------- */
-  const navLinks = Array.from(document.querySelectorAll("[data-nav]"));
-  const spySections = navLinks
-    .map((link) => {
-      const id = link.getAttribute("href");
-      if (!id || !id.startsWith("#")) return null;
-      const section = document.querySelector(id);
-      return section ? { link, section } : null;
-    })
-    .filter(Boolean);
-
-  const setActiveNav = () => {
-    const offset = window.scrollY + 120;
-    let current = spySections[0];
-
-    spySections.forEach((item) => {
-      if (item.section.offsetTop <= offset) current = item;
-    });
-
-    navLinks.forEach((link) => link.classList.remove("is-active"));
-    if (current) current.link.classList.add("is-active");
-  };
-
-  if (spySections.length) {
-    setActiveNav();
-    window.addEventListener("scroll", setActiveNav, { passive: true });
-  }
-
   /* ---------- Stat count-up ---------- */
   const animateCount = (el) => {
     const target = Number(el.dataset.count || 0);
@@ -138,6 +134,7 @@
   const form = document.getElementById("contact-form");
   const successEl = document.getElementById("form-success");
   const messageField = document.getElementById("message");
+  const INQUIRE_KEY = "gh-inquire-message";
 
   const scrollToContact = () => {
     const contact = document.getElementById("contact");
@@ -145,16 +142,40 @@
     contact.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
   };
 
-  const inquire = (message) => {
+  const fillMessage = (message) => {
     if (!messageField) return;
     messageField.value = message;
     if (successEl) successEl.hidden = true;
-    scrollToContact();
     window.setTimeout(() => {
       messageField.focus();
       messageField.setSelectionRange(messageField.value.length, messageField.value.length);
-    }, reduceMotion ? 0 : 450);
+    }, reduceMotion ? 0 : 200);
   };
+
+  const inquire = (message) => {
+    if (messageField) {
+      fillMessage(message);
+      scrollToContact();
+      return;
+    }
+    try {
+      sessionStorage.setItem(INQUIRE_KEY, message);
+    } catch (_) {
+      /* ignore */
+    }
+    window.location.href = "contact.html";
+  };
+
+  if (messageField) {
+    let pending = null;
+    try {
+      pending = sessionStorage.getItem(INQUIRE_KEY);
+      if (pending) sessionStorage.removeItem(INQUIRE_KEY);
+    } catch (_) {
+      /* ignore */
+    }
+    if (pending) fillMessage(pending);
+  }
 
   document.querySelectorAll(".js-inquire").forEach((btn) => {
     btn.addEventListener("click", (event) => {
